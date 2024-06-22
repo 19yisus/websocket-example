@@ -49,6 +49,17 @@ android {
 }
 
 dependencies {
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+	implementation("com.google.code.gson:gson:2.8.9")
+
+	implementation("io.socket:socket.io-client:2.0.0") {
+		exclude(group = "org.json", module = "json")
+	}
+
+	implementation(libs.ktor.client.cio)
+	implementation("io.ktor:ktor-client-core:1.6.7")
+	implementation(libs.ktor.client.websockets)
 //	PUSHER
 	implementation(libs.pusher.java.client)
 //	DAGGER HILT

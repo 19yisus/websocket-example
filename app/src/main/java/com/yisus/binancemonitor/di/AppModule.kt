@@ -1,6 +1,7 @@
 package com.yisus.binancemonitor.di
 
 import com.yisus.binancemonitor.data.common.consts.BASE_URL_SOCKET
+import com.yisus.binancemonitor.data.common.consts.BASE_URL_SOCKET_API
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,9 +31,12 @@ object AppModule {
 			.build()
 	}
 	
-	@Provides
+/*	@Provides
 	@Singleton
 	fun provideRequest(): Request {
-		return Request.Builder().url(BASE_URL_SOCKET).build()
-	}
+		return Request.Builder()
+			.url(BASE_URL_SOCKET_API)
+			.addHeader("Authorization", "Bearer 9166838c232311f7da78ac0451b5db7578515445689d43bf6d95288eefc0e5d6")
+			.build()
+	}*/
 }

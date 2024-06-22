@@ -1,3 +1,4 @@
+/*
 package com.yisus.binancemonitor.di
 
 import android.util.Log
@@ -46,4 +47,4 @@ object WebSocketModule {
 
     return okHttpClient.newWebSocket(request, webSocketListener)
   }
-}
+}*/

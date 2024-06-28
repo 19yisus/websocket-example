@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.yisus.binancemonitor.presentation.theme.BinanceMonitorTheme
-import com.yisus.binancemonitor.presentation.ui.monitor.MonitorScreen
+import com.yisus.binancemonitor.presentation.ui.otherMonitor.MonitorTestScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 		setContent {
 			BinanceMonitorTheme {
-				MonitorScreen()
+				MonitorTestScreen()
 			}
 		}
 	}

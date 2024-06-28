@@ -12,10 +12,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import io.socket.client.IO
 import io.socket.client.Socket
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
+import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import java.net.URISyntaxException
+import java.util.concurrent.TimeUnit
 
 
 @Composable
@@ -24,9 +28,8 @@ fun MonitorScreen(
 
 	val subscribeMessage = "{\"channel\":\"chofer.viajes.disponibles\",\"event\":\"ViajeCreadoEvent\"}"
 	val token = "1ddeb4ceb22fa36c6abf0f7d7bc0efb2426249bbad811d041e6d4de6e8ccdf4a"
-	val client = OkHttpClient()
 
-	val request = Request.Builder()
+/*	val request = Request.Builder()
 		.url("wss://devgg.duckdns.org")
 		.build()
 
@@ -66,12 +69,12 @@ fun MonitorScreen(
 		} catch (e: URISyntaxException) {
 			Log.e("WEBSOCKET ERROR", e.message.toString())
 		}
-	}
+	}*/
 
-/*	val client = OkHttpClient.Builder()
+	val client = OkHttpClient.Builder()
 		.readTimeout(0, TimeUnit.MILLISECONDS)
-		.addNetworkInterceptor(object : okhttp3.Interceptor {
-			override fun intercept(chain: okhttp3.Interceptor.Chain): okhttp3.Response {
+		.addNetworkInterceptor(object : Interceptor {
+			override fun intercept(chain: Interceptor.Chain): Response {
 				val original = chain.request()
 				val request = original.newBuilder()
 					.header("Authorization", "Bearer $token")
@@ -84,16 +87,17 @@ fun MonitorScreen(
 			maxRequests = 1
 		})
 		.authenticator(object : okhttp3.Authenticator {
-			override fun authenticate(route: okhttp3.Route?, response: okhttp3.Response): okhttp3.Request? {
+			override fun authenticate(route: okhttp3.Route?, response: Response): Request {
 				return response.request.newBuilder()
 					.header("Authorization", "Bearer $token")
 					.build()
 			}
 		})
 		.build()
-
-	val request = okhttp3.Request.Builder()
-		.url("wss://devgg.duckdns.org/app/app-key?protocol=7&client=js&version=7.0.3&flash=false")
+	//?protocol=7&client=js&version=7.0.3&flash=false
+	val channel = "chofer.viajes.disponibles"
+	val request = Request.Builder()
+		.url("wss://devgg.duckdns.org/$channel/api_key=$token")
 		.header("Authorization", "Bearer $token")
 		.build()
 
@@ -108,7 +112,7 @@ fun MonitorScreen(
 			Log.d("WEBSOCKET MESSAGE", text)
 
 			// Parse the message
-			val json = JSONObject(text)
+/*			val json = JSONObject(text)
 			val event = json.getString("event")
 			if (event == "pusher:connection_established") {
 				val dataString = json.getString("data")
@@ -139,11 +143,7 @@ fun MonitorScreen(
 			}else{
 				Log.d("AAAAAAAAAAAA", "Received event data: ${json.getJSONObject("data")}")
 				Log.e("AAAAAAAAAAAAAAAAAA", event)
-			}
-
-			Log.e("AAAAAAAAAAAAAAAAAA", event)
-
-
+			}*/
 		}
 
 		override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -159,7 +159,7 @@ fun MonitorScreen(
 
 	LaunchedEffect(Unit) {
 		client.newWebSocket(request, socketListener)
-	}*/
+	}
 
 
 	/*LaunchedEffect(Unit) {
